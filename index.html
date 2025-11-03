@@ -1,518 +1,450 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Sandino Mañana y Gonzalo Pereira" />
-    <meta name="description" content="Guía INFOSERV para ingresar nuevo personal al control de accesos." />
-    <title>INFOSERV | Guía Gestion de personal (Symphony AC)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        /* =======================
-        Paleta & Tipografía
-        ======================= */
-        :root{
-            --navy: #0B2545;        /* Azul marino principal */
-            --navy-2: #123A66;      /* Azul marino secundario */
-            --orange: #FF6A00;      /* Naranja INFOSERV */
-            --orange-2: #FF8A33;    /* Naranja claro de apoyo */
-            --bg: #FFFFFF;          /* Blanco */
-            --surface: #F6F8FC;     /* Fondo claro */
-            --text: #0E1B2A;        /* Texto principal (oscuro) */
-            --muted: #516178;       /* Texto secundario */
-            --shadow: 0 10px 30px rgba(0,0,0,.08);
-            --radius: 12px;
-        }
+  <title>Aplicacion Symphony AC | Guía</title>
+  <meta name="description" content="Guía paso a paso de como gestionar el personal en la aplicacion Symphony AC.">
 
-        /* Reset & base */
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-            color: var(--text); background: var(--bg); line-height: 1.55;
-        }
-        img { max-width: 100%; height: auto; display: block; }
-        a { color: var(--orange); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Aplicacion Symphony AC | Guía">
+  <meta property="og:description" content="Guía paso a paso de como gestionar el personal en la aplicacion Symphony AC.">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Gu%C3%ADa+Symphony+AC">
+  <meta property="og:locale" content="es_ES">
 
-        /* =======================
-        Navbar (texto blanco)
-        ======================= */
-        .navbar {
-            background: linear-gradient(90deg, var(--navy) 0%, var(--navy-2) 100%);
-            color: #fff;
-            position: sticky; top: 0; z-index: 50;
-            box-shadow: var(--shadow);
-        }
-        .navbar-inner {
-            display: flex; align-items: center; justify-content: space-between; padding: 12px 0;
-        }
-        .brand { color: #fff; font-weight: 800; letter-spacing: .3px; }
-        .brand-accent { color: var(--orange); }
-        .nav-links { display: flex; gap: 18px; }
-        .nav-links a { color: #fff; font-weight: 600; }
-        .nav-links a:hover, .nav-links a:focus { color: #FFD7BA; outline: none; }
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' ry='16' fill='%230d3256'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='64' fill='%23ff7a00'%3EAC%3C/text%3E%3C/svg%3E">
 
-        /* =======================
-        Hero (texto blanco)
-        ======================= */
-        .hero {
-            color: #fff;
-            background:
-                radial-gradient(900px 380px at 10% 0%, rgba(255,106,0,.18) 0%, transparent 60%),
-                linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
-            padding: 64px 0 28px;
-            position: relative; overflow: hidden;
-        }
-        .badge {
-            display: inline-block; padding: 6px 10px; border-radius: 999px;
-            background: linear-gradient(90deg, var(--orange), var(--orange-2)); color: #1B1B1B;
-            font-size: 12px; font-weight: 800; text-transform: uppercase;
-        }
-        .hero h1 { margin: 12px 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; }
-        .hero p.lead { margin: 0 0 18px; color: #E9F1FF; }
-        .hero .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-            padding: 12px 16px; border-radius: 10px; border: 2px solid transparent; font-weight: 700;
-            transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
-        }
-        .btn:hover { transform: translateY(-1px); }
-        .btn-primary { background: var(--orange); color: #1B1B1B; }
-        .btn-primary:hover { background: var(--orange-2); }
-        .btn-light { background: transparent; color: #fff; border-color: #FFFFFF66; }
-        .btn-light:hover { background: #FFFFFF20; }
+  <!--Codigo CSS-->
+  <style>
+    /* Reglas base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html:focus-within { scroll-behavior: smooth; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; color: #0E1B2A; background: #FFFFFF; }
+    img { max-width: 100%; height: auto; display: block; border-radius: 8px; transition: all 0.3s ease; }
+    /* Zoom leve al pasar el cursor sobre la imagen y eliminacion de blur*/
+    img:hover {transform: scale(1.02);cursor: pointer;}
 
-        /* Separador ondulado naranja */
-        .wave { position: absolute; left: 0; right: 0; bottom: -1px; height: 46px; }
+    :root {
+      --brand-blue-950: #0B2545;
+      --brand-blue-900: #0B2545; /* navy principal */
+      --brand-blue-800: #123A66; /* navy secundario */
+      --brand-blue-700: #18477b;
+      --brand-orange: #ff7a00; /* acento */
+      --brand-orange-2: #ff8a33; /* acento claro */
+      --text-900: #0e1a2b;
+      --text-700: #46546b;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --radius: .75rem;
+      --radius-sm: .5rem;
+      --shadow-sm: 0 10px 30px rgba(0,0,0,.08);
+      --shadow-md: 0 8px 24px rgba(13,50,86,.12);
+      --shadow-elev: 0 12px 30px rgba(0,0,0,.2);
+      --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+      --maxw: 1100px;
+    }
 
-        /* =======================
-        Secciones claras
-        ======================= */
-        .section-alt { background: var(--surface); }
-        .heading {
-            font-size: 22px; margin: 0 0 14px;
-            border-left: 10px solid var(--orange); padding-left: 10px;
-        }
+    .container { width: min(100% - 40px, var(--maxw)); margin-inline: auto; }
 
-        /* =======================
-        Índice
-        ======================= */
-        .toc ol { margin: 0; padding-left: 18px; }
-        .toc a { color: var(--text); }
-        .toc a:hover { color: var(--orange); }
+    /* Barra superior con gradiente */
+    .topbar { background: linear-gradient(90deg, var(--brand-blue-900), var(--brand-blue-800)); color: #cfe3ff; font-size: .95rem; box-shadow: var(--shadow-md); }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 0; }
+    .brand { display: inline-flex; align-items: center; gap: .2rem; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: .3px; font-size: 1.15rem; }
+    .brand em { color: var(--brand-orange); font-style: normal; font-weight: 800; }
+    .top-links { display: inline-flex; gap: 18px; }
+    .top-links a { color: #fff; text-decoration: none; font-weight: 700; }
+    .top-links a:hover, .top-links a:focus { color: #FFD7BA; outline: none; }
 
-        /* =======================
-        Timeline & Tarjetas
-        ======================= */
-        .timeline { position: relative; margin-left: .5rem; padding-left: 2.25rem; }
-        .timeline::before {
-            content: ""; position: absolute; left: 16px; top: 0; bottom: 0; width: 4px; border-radius: 2px;
-            background: linear-gradient(180deg, var(--orange), var(--orange-2));
-        }
-        .t-item { position: relative; margin-bottom: 24px; }
-        .t-item::before {
-            content: attr(data-step);
-            position: absolute; left: 5px; top: .35rem; width: 36px; height: 36px; border-radius: 50%;
-            background: var(--navy); color: #fff; font-weight: 800; font-size: .95rem; line-height: 30px; text-align: center;
-            border: 3px solid var(--orange); box-shadow: 0 4px 10px rgba(0,0,0,.15);
-        }
-        .card {
-            border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 0; background: #fff;
-        }
-        .card-header {
-            background: linear-gradient(90deg, var(--orange), var(--orange-2)); color: #1B1B1B;
-            font-weight: 800; padding: 12px 45px; letter-spacing: .2px;
-        }
-        .card-body { padding: 16px; color: var(--text); }
+    /* Cabecera de guía con tamaños fijados */
+    .guide-hero { background: radial-gradient(900px 380px at 10% 0%, rgba(255,106,0,.18) 0%, transparent 60%), linear-gradient(180deg, var(--brand-blue-900) 0%, var(--brand-blue-800) 100%); color: #fff; padding: 64px 0 28px; position: relative; overflow: hidden; }
+    .guide-hero .badge { display: inline-block; background: linear-gradient(90deg, var(--brand-orange), var(--brand-orange-2)); color: #1b1b1b; border-radius: 999px; padding: 6px 10px; font-weight: 800; font-size: 12px; text-transform: uppercase; box-shadow: var(--shadow-elev); }
+    .guide-title { margin: 12px 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; font-weight: 700; letter-spacing: .2px; }
+    .guide-title span { color: var(--brand-orange); }
+    .guide-subtitle { margin: 0 0 18px; color: #E9F1FF; font-size: 1.05rem; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { appearance: none; border-radius: 10px; padding: 12px 16px; border: 2px solid transparent; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--brand-orange); color: #1b1b1b; box-shadow: var(--shadow-elev); border-radius: 999px;}
+    .btn-primary:hover { background: var(--brand-orange-2);}
+    .btn-ghost { background: transparent; color: #fff; border-color: #FFFFFF66; box-shadow: inset 0 1px 0 rgba(255,255,255,.18); border-radius: 999px; }
+    .btn-ghost:hover { background: #FFFFFF20; }
+    .guide-meta { margin-top: 10px; font-size: 1rem; color: #cfe3ff; }
 
-        /* Layout responsive para texto + imagen */
-        .row-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-        @media (min-width: 900px){
-            .row-grid { grid-template-columns: 1fr 1fr; align-items: center; }
-        }
+    /* Tarjetas secciones */
+    .section { padding: var(--space-8) 0; }
+    .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .card-head { background: linear-gradient(90deg, var(--brand-orange), var(--brand-orange-2)); color: #1b1b1b; padding: .6rem .9rem; font-weight: 700; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); display: flex; align-items: center; gap: .6rem; font-size: 22px;}
+    .card-body { padding: var(--space-6); }
 
-        /* =======================
-        Imágenes & lightbox
-        ======================= */
-        figure { margin: 0; }
-        figcaption { color: var(--muted); font-size: .92rem; margin-top: 8px; }
-        .shot {
-            border-radius: 10px; border: 1px solid rgba(11,37,69,.10);
-            box-shadow: 0 6px 22px rgba(0,0,0,.12); cursor: zoom-in;
-            transition: transform .12s ease, box-shadow .12s ease;
-            background: #fff;
-        }
-        .shot:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.16); }
+    /* Índice */
+    .index-list { margin: 0; padding-left: 0; color: var(--text-700); counter-reset: idx; list-style: none; }
+    .index-list li { margin: .35rem 0; counter-increment: idx; display: flex; align-items: center; gap: .6rem; }
+    .index-list li::before { content: counter(idx, decimal-leading-zero); width: 28px; height: 28px; border-radius: 999px; background: var(--brand-blue-900); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .8rem; flex: 0 0 28px; }
+    .index-list a { color: inherit; text-decoration: none; display: inline-block; padding: 3px 6px; border-radius: 6px; transition: background .15s ease, color .15s ease, box-shadow .15s ease; }
+    .index-list a:hover, .index-list a:focus { color: var(--brand-orange); background: #fff8ef; outline: none; text-decoration: none; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+    .index-list a:focus-visible { box-shadow: 0 0 0 2px #ffd7ba; }
 
-        /* Lightbox overlay */
-        .overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,.8); display: none;
-            align-items: center; justify-content: center; z-index: 1000; padding: 20px;
-        }
-        .overlay.open { display: flex; }
-        .overlay-content { max-width: 1200px; width: 100%; }
-        .overlay-header { display: flex; justify-content: space-between; align-items: center; color: #fff; margin-bottom: 10px; }
-        .overlay-header .close { background: transparent; border: 2px solid #fff; color: #fff; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
-        .overlay-header .close:hover { background: #ffffff22; }
-        .overlay img { width: 100%; height: auto; border-radius: 12px; }
+    /* Pasos */
+    .step { overflow: hidden; }
+    .step + .step { margin-top: var(--space-4); }
+    .step-head { display: flex; align-items: center; gap: .75rem; background: #fff7f1; color: #1B1B1B; border-bottom: 1px solid var(--border); padding: .6rem .9rem; font-weight: 800; }
+    .step-num { width: 28px; height: 28px; display: grid; place-items: center; background: var(--brand-blue-900); color: #fff; border-radius: 999px; font-weight: 700; border: none; }
+    .step-body { display: grid; gap: var(--space-4); grid-template-columns: 1fr 360px; padding: var(--space-6);align-items: center; }
+    .step-body p { margin: 0; color: var(--text-700); }
+    .screenshot { background: #fff; border: 1px solid rgba(11,37,69,.10); border-radius: 10px; height: 140px; display: grid; place-items: center; color: #7a8aa6; font-size: .9rem; box-shadow: 0 6px 22px rgba(0,0,0,.12); overflow: hidden; transition: transform 0.2s ease;}
+    .screenshot img {max-height: 100%; width: auto; border-radius: 10px; object-fit: contain;}
 
-        /* =======================
-        Callout y Footer
-        ======================= */
-        .callout {
-            border-left: 6px solid var(--orange);
-            background: #FFF7F1; padding: 14px 16px; border-radius: 10px;
-        }
-        footer {
-            background: #0A213B; color: #DBE6F4; padding: 18px 0; margin-top: 32px;
-        }
+    .step-body {
+      display: flex;
+      flex-direction: row;
+      gap: var(--space-4);
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-        /* Accesibilidad: foco */
-        a:focus, button:focus { outline: 3px solid #FFD7BA; outline-offset: 2px; }
-        /* Impresión */
-        @media print {
-            .no-print { display: none !important; }
-            .card { box-shadow: none; border: 1px solid #ccc; }
-            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .9em; }
-        }
-    </style>
+    .step-body p {
+      flex: 1 1 100%;
+      margin: 0;
+      color: var(--text-700);
+    }
+
+    /* Contenedor de contenedores de imagen */
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Contenedor de imagen */
+    .screenshot {
+      flex: 1 1 45%; /* dos por fila aprox */
+      height: auto;
+    }
+
+    /* Rellenar contenedor cuando la imagen es mas pequeña */
+    .screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Notas */
+    .note { padding: var(--space-4); border: 1px dashed #ffd7b0; background: #fff8ef; border-radius: var(--radius); }
+    .note-ttl { display: inline; font-weight: 900; color: #8a4100; margin-right: 6px; }
+    .note-ttl::after { content: ":"; }
+    .note > div:not(.note-ttl) { display: inline; }
+
+    /* Pie */
+    footer { margin-top: 32px; padding: 18px 0; color: #DBE6F4; background: #0A213B; }
+
+    /* Onda decorativa */
+    .hero-wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; pointer-events: none; }
+
+    /* Fondo difuminado al abrir imagen */
+    .zoom-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .zoom-wrapper {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .zoom-wrapper img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.25s ease;
+      user-select: none;
+      touch-action: none; /* evita desplazamiento accidental en móviles */
+    }
+
+    /* Devuelve el cursor a su forma original cuando la imagen esta agrandada */
+    .zoom-wrapper img:hover {transform: scale(1.02);cursor: default;}
+
+    /*Evita que en pdf se corte el contenido en las hojas, y agrandar imagenes juntas*/
+    @media print {
+      .step,
+      .note,
+      .screenshot {
+        break-inside: avoid;
+        flex: 1 1 100%;
+        height: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <header class="topbar" role="banner">
+    <div class="container topbar-inner">
+      <a class="brand" href="#" aria-label="Inicio">
+        INFOSERV <em>CORP</em>
+      </a>
+      <nav aria-label="Enlaces superiores" class="top-links">
+        <a href="#indice">Índice</a>
+        <a href="#pasos">Pasos</a>
+        <a href="#notas">Notas</a>
+      </nav>
+    </div>
+  </header>
 
-    <header class="navbar">
-        <div class="container navbar-inner">
-            <div class="brand">INFOSERV <span class="brand-accent">CORP</span></div>
-            <nav class="nav-links" aria-label="Navegación principal">
-                <a href="#indice">Índice</a> <a href="#pasos">Pasos</a> <a href="#notas">Notas</a> </nav>
+  <section class="guide-hero">
+    <div class="container">
+      <span class="badge">GUÍA INFOSERV</span>
+      <h1 class="guide-title">Aplicacion <span>Symphony AC</span></h1>
+      <p class="guide-subtitle">Gestion del personal.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#pasos">Ver pasos</a>
+        <button class="btn btn-ghost" onclick="window.print()">Imprimir</button>
+      </div>
+      <p class="guide-meta">Autor: <strong>Gonzalo Pereira</strong> · Actualizado: 29/10/2025</p>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" height="45px" width="auto">
+      <defs>
+        <linearGradient id="grad-orange" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#FF6A00"/>
+          <stop offset="100%" stop-color="#FF8A33"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#grad-orange)" d="M0,32 C240,64 480,0 720,24 C960,48 1200,24 1440,40 L1440,60 L0,60 Z"></path>
+    </svg>
+  </section>
+
+  <main>
+    <section id="indice" class="section">
+      <div class="container">
+        <div class="card">
+          <div class="card-head">Índice</div>
+          <div class="card-body">
+            <ol class="index-list">
+              <li><a href="#p1">Dirigirse a gestión de personal</a></li>
+              <li><a href="#p2">Ingresar personal</a></li>
+              <li><a href="#p3">Rellenar información básica</a></li>
+              <li><a href="#p4">Rellenar información extra</a></li>
+              <li><a href="#p5">Agregar foto</a></li>
+              <li><a href="#p6">Guardar cambios</a></li>
+              <li><a href="#p7">Editar personal</a></li>
+              <li><a href="#p8">Eliminar personal</a></li>
+            </ol>
+          </div>
         </div>
-    </header>
-
-    <section class="hero">
-        <div class="container">
-            <span class="badge">Guía INFOSERV</span>
-            <h1>Configuración <span style="color:var(--orange)">Symphony AC</span></h1>
-            <p class="lead">
-                Alta de nuevo personal en Symphony AC
-            </p>
-            <div class="actions no-print">
-                <a href="#pasos" class="btn btn-primary">Ver pasos</a> <button class="btn btn-light" onclick="window.print()">Imprimir</button>
-            </div>
-            <p style="margin-top:10px;color:#E9F1FF;">Autor: <strong>Gonzalo Pereira</strong> · Actualizado: <span id="lastDate">29/10/2025</span></p>
-        </div>
-
-        <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true" width="auto">
-            <path fill="url(#grad-orange)" d="M0,32 C240,64 480,0 720,24 C960,48 1200,24 1440,40 L1440,60 L0,60 Z"></path>
-            <defs>
-                <linearGradient id="grad-orange" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0%" stop-color="#FF6A00"/>
-                    <stop offset="100%" stop-color="#FF8A33"/>
-                </linearGradient>
-            </defs>
-        </svg>
+      </div>
     </section>
 
-    <main>
-        <section id="indice" class="section-alt">
-            <div class="container" style="padding: 26px 0;">
-                <h2 class="heading">Índice</h2>
-                <div class="toc">
-                    <ol>
-                        <li><a href="#p1">Ingreso al Cloud Controller</a></li>
-                        <li><a href="#p2">Elegir o crear Sitio</a></li>
-                        <li><a href="#p3">Agregar dispositivos</a></li>
-                        <li><a href="#p4">Agregar por número de serie</a></li>
-                        <li><a href="#p5">Seleccionar el switch</a></li>
-                        <li><a href="#p6">Actualizar firmware</a></li>
-                        <li><a href="#p7">Ir a Settings → LAN</a></li>
-                        <li><a href="#p8">Crear VLANs en Networks</a></li>
-                        <li><a href="#p9">Configurar puerto Trunk (Port Profile)</a></li>
-                        <li><a href="#p10">Asignar VLAN a puertos de acceso</a></li>
-                    </ol>
-                </div>
+    <section id="pasos" class="section">
+      <div class="container">
+        <div class="card">
+          <div class="card-head">Pasos detallados:</div>
+          <div class="card-body" style="display:grid; gap: var(--space-4);">
+            <div class="step card" id="p1">
+              <div class="step-head"><span class="step-num">1</span> Dirigirse a gestión de personal</div>
+              <div class="step-body">
+                <p>
+                  1- En la aplicación, diríjase a la sección <strong>Accesos</strong>.<br>
+                  2- Haga clic derecho dentro de esta sección para desplegar el menú de opciones.<br>
+                  3- En el menú, seleccione la opción <strong>Gestor de Personal</strong> haciendo clic derecho.
+                </p>
+                <img src="1- Accesos - Gestion de personal.png" alt="Accesos - Gestion de personal">
+              </div>
             </div>
-        </section>
 
-        <section id="pasos">
-            <div class="container" style="padding: 28px 0;">
-                <h2 class="heading">Pasos detallados:</h2>
-                <div class="timeline">
-
-                    <article id="p1" class="t-item" data-step="1">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→ Dirigirse a gestion de personal</div>
-                            <div class="card-body">
-                                <div class="row-grid"> <div>
-                                        <p>
-                                            En la aplicacion dirigase a la seccion de <strong>Accesos</strong> y de clic derecho; se nos desplegara un menu con nuevas opciones, en donde daremos clic a la opcion "<strong>Gestor de Personal</strong>".
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="1- Accesos - Gestion de personal.png"/><figcaption>Accesos - Gestion de Personal.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p2" class="t-item" data-step="2">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→ Ingresar personal</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>
-                                            Desbloquear modulo dando clic derecho en el icono del <strong>CANDADO</strong>. Una vez desbloqueado de clic derecho en el icono de <strong>+</strong> y se te desplegara un menu con opciones nuevas, en la cual daremos clic derecho en la opcion "<strong>New Blank New Record</strong>" para crear un nuevo registro.
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="2- Añadir.png"/> <figcaption>Desbloquear modulo.</figcaption>
-                                            <img class="shot" src="3- Añadir 2.png"/> <figcaption>Crear nuevo registro.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p3" class="t-item" data-step="3">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→ Rellenar informacion basica de nuevo personal</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>
-                                            Una vez creado el nuevo registro se nos mostrara de la siguiente manera, donde en la primera pestaña "<strong>Control de Accesos</strong>" ingresaremos el nombre correspondiente al igual que su llave de acceso.
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="4- Nuevo personal.png"/>
-                                            <figcaption>Registro nuevo personal en blanco.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p4" class="t-item" data-step="4">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→ Rellenar informacion extra de personal</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>Si nos dirigimos a la ventana "<strong>Informacion de empleado</strong>" y le damos clic derecho, nos dirigiriremos a la siguiente ventana, en donde podremos agregar, editar o eliminal informacion sobre el personal.</p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="5- Nuevo personal 2.png"/>
-                                            <figcaption>Informacion de empleado</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p5" class="t-item" data-step="5">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→ Agregar foto a personal</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>
-                                            Nos dirigiremos a la pestaña "<strong>Badging</strong>". Allí, haremos clic derecho sobre la opción "<strong>Get Photo From...</strong>" 
-                                            y se desplegará un menú de opciones. En este menú, haremos clic derecho en "<strong>Picture File</strong>", lo que abrirá una nueva pestaña 
-                                            en la que deberemos buscar y seleccionar la foto correspondiente. Una vez seleccionada la foto, podremos ajustarla utilizando las opciones "<strong>Aspect Ratio</strong>" y "<strong>Recortar Tamaño de la Caja</strong>".
-
-                                            Cuando todo esté listo, haremos clic derecho sobre el botón <strong>Save Photo</strong>. Al hacer clic, aparecerá un mensaje de advertencia en el que deberemos seleccionar la opción <strong>Yes</strong> para guardar los cambios.
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="6- Nuevo personal 3.png"/>
-                                            <figcaption>Ingresar foto.</figcaption>
-                                            <img class="shot" src="7- Nuevo personal 4.png"/>
-                                            <figcaption>Seleccionar foto.</figcaption>
-                                            <img class="shot" src="8- Nuevo personal 5.png"/>
-                                            <figcaption>Guardar cambios.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p6" class="t-item" data-step="6">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→Actualizar firmware (si aplica)</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>Actualizá el <strong>firmware</strong> para asegurar control completo desde el Controller.</p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="upgrade.png" alt="Opción para actualizar firmware" data-caption="Actualizar firmware desde el panel del dispositivo." /> <figcaption>Actualizar firmware desde el panel del dispositivo.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p7" class="t-item" data-step="7">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→Ir a Settings → LAN</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>En el panel izquierdo, navegá a <strong>Settings → LAN</strong>.</p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="settingslan.png" alt="Captura de pantalla de la ruta Settings LAN" data-caption="Ruta: Settings → LAN." /> <figcaption>Ruta: <strong>Settings → LAN</strong>.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p8" class="t-item" data-step="8">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→Crear VLANs en Networks</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>En <strong>Networks</strong>, hacé clic en <em>+ Create New LAN</em> y creá las VLAN necesarias:</p>
-                                        <ul>
-                                            <li>VLAN <strong>10</strong></li>
-                                            <li>VLAN <strong>20</strong></li>
-                                            <li>VLAN <strong>30</strong></li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="newlan.png" alt="Creación de VLANs 10, 20, 30" data-caption="Networks → + Create New" />
-                                            <figcaption>Networks → + Create New LAN.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p9" class="t-item" data-step="9">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→Configurar puerto Trunk (Port Profile)</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>En <strong>Switch Settings</strong>, editá el <strong>Port Profile</strong> del puerto <em>Trunk</em>. Indicá pertenencia al grupo <strong>all</strong> (por defecto suele estar).</p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="portsvlan.png" alt="Configuración de Port Profile Trunk" data-caption="Port Profile del trunk: all y VLAN nativa según diseño." /> <figcaption>Port Profile del trunk: <strong>all</strong> y VLAN nativa según diseño.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="p10" class="t-item" data-step="10">
-                        <div class="card">
-                            <div class="card-header">→→→→→→→Asignar VLAN a puertos de acceso</div>
-                            <div class="card-body">
-                                <div class="row-grid">
-                                    <div>
-                                        <p>Editá los demás puertos para que pertenezcan a la <strong>VLAN correspondiente</strong> (puertos de acceso).</p>
-                                    </div>
-                                    <div>
-                                        <figure>
-                                            <img class="shot" src="portsvlan1.png" alt="Asignación de perfiles de puertos a VLAN" data-caption="Asignación de perfiles de puertos a VLAN específicas." /> <figcaption>Asignación de perfiles de puertos a VLAN específicas.</figcaption>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
+            <div class="step card" id="p2">
+              <div class="step-head"><span class="step-num">2</span> Ingresar personal</div>
+              <div class="step-body">
+                <p>
+                  1- Desbloquee el módulo haciendo clic derecho sobre el ícono del <strong>candado</strong>.<br>
+                  2- Una vez desbloqueado, haga clic derecho sobre el ícono de agregar <strong>+</strong>.<br>
+                  3- Se desplegará un menú con varias opciones; seleccione <strong>New Blank New Record</strong> haciendo clic derecho para crear un nuevo registro.
+                </p>
+                <div class="galeria">
+                  <div class="screenshot">
+                    <img src="2- Añadir.png" alt="Desbloquear módulo - Crear nuevo registro">
+                  </div>
+                  <div class="screenshot">
+                    <img src="3- Añadir 2.png" alt="Desbloquear módulo - Crear nuevo registro">
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
 
-        <section id="notas" class="section-alt">
-            <div class="container" style="padding: 24px 0;">
-                <h2 class="heading">Notas útiles</h2>
-                <div class="callout">
-                    <p class="mb-1"><strong>Consejo:</strong> Si el switch aparece como <em>Pending</em> en <em>Devices</em>, hacé clic en <em>Adopt</em> para que el Controller lo gestione.</p>
-                    <p class="mb-0"><strong>Recordatorio:</strong> Revisá la VLAN nativa del <em>trunk</em> (por ejemplo, Management) y que <em>LLDP</em> esté habilitado si lo usás para descubrimiento.</p>
+            <div class="step card" id="p3">
+              <div class="step-head"><span class="step-num">3</span> Rellenar información básica</div>
+              <div class="step-body">
+                <p>
+                  1- Una vez creado el nuevo registro, este se mostrará en pantalla con su respectiva estructura.<br>
+                  2- En la primera pestaña, denominada <strong>Control de Accesos</strong>, deberá ingresar el nombre correspondiente y asignar la llave de acceso del empleado.
+                </p>
+                <img src="4- Nuevo personal.png" alt="Registro nuevo personal en blanco">
+              </div>
+            </div>
+
+            <div class="step card" id="p4">
+              <div class="step-head"><span class="step-num">4</span> Rellenar información extra</div>
+              <div class="step-body">
+                <p>
+                  1- Diríjase a la ventana <strong>Información de empleado</strong>.<br>
+                  2- Desde la nueva ventana que se abrirá, podrá agregar, editar o eliminar información relacionada con el personal.
+                </p>
+                <img src="5- Nuevo personal 2.png" alt="Información de empleado">
+              </div>
+            </div>
+
+            <div class="step card" id="p5">
+              <div class="step-head"><span class="step-num">5</span> Agregar foto</div>
+              <div class="step-body">
+                <p>
+                  1- Diríjase a la pestaña “Badging”.<br>
+                  2- Haga clic derecho sobre la opción "<strong>Get Photo From...</strong>". Se desplegará un menú con varias alternativas.<br>
+                  3- En dicho menú, seleccione <strong>Picture File</strong> haciendo clic derecho.<br>
+                  4- Se abrirá una nueva ventana donde deberá buscar y seleccionar la fotografía correspondiente al empleado.<br>
+                  5- Una vez cargada la imagen, podrá ajustarla utilizando las opciones <strong>Aspect Ratio</strong> y <strong>Recortar Tamaño de la Caja</strong>.<br>
+                  6- Cuando la fotografía esté correctamente configurada, haga clic derecho sobre el botón <strong>Save Photo</strong>.<br>
+                  7- Finalmente, aparecerá un mensaje de confirmación; confirme la acción haciendo clic derecho en la opción correspondiente.
+                </p>
+                <div class="galeria">
+                  <div class="screenshot">
+                    <img src="6- Nuevo personal 3.png" alt="Ingresar foto de personal">
+                  </div>
+                  <div class="screenshot">
+                    <img src="7- Nuevo personal 4.png" alt="Selecionar foto de personal">
+                  </div>
+                  <div class="screenshot">
+                    <img src="8- Nuevo personal 5.png" alt="Guardar foto de personal">
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-    </main>
 
-    <footer role="contentinfo">
-        <div class="container">
-            © <span id="y"></span> INFOSERV CORP · Hecho por <strong>Sandino Mañana</strong>
+            <div class="step card" id="p6">
+              <div class="step-head"><span class="step-num">6</span> Guardar cambios</div>
+              <div class="step-body">
+                <p>
+                  1- Haga clic derecho sobre el ícono de <strong>guardar</strong> para almacenar los cambios realizados.<br>
+                  2- Si no desea continuar trabajando, recuerde bloquear el módulo haciendo clic derecho sobre el ícono del <strong>candado</strong>.
+                </p>
+                <img src="9- Guardado.png" alt="Guardar cambios">
+              </div>
+            </div>
+
+            <div class="step card" id="p7">
+              <div class="step-head"><span class="step-num">7</span> Editar personal</div>
+              <div class="step-body">
+                <p>
+                  1- Verifique si el módulo se encuentra bloqueado (el icono del <strong>candado</strong> se mostrara desbloqueado). En caso afirmativo, desbloquéelo haciendo clic derecho sobre el ícono del <strong>candado</strong>.<br>
+                  2- Haga clic derecho sobre el nombre del empleado cuya información desea modificar.<br>
+                  3- Realice los cambios necesarios en el registro del empleado.<br>
+                  4- Una vez finalizadas las modificaciones, haga clic derecho sobre el ícono de guardar para almacenar los cambios.<br>
+                  5- Finalmente, haga clic derecho nuevamente sobre el ícono del candado para cerrar el módulo.
+                </p>
+                <img src="10- Editar personal.png" alt="Editar información de empleado">
+              </div>
+            </div>
+
+            <div class="step card" id="p8">
+              <div class="step-head"><span class="step-num">8</span> Eliminar personal</div>
+              <div class="step-body">
+                <p>
+                  1- En primer lugar, verifique si el módulo se encuentra bloqueado (el icono del <strong>candado</strong> se mostrara desbloqueado). En caso afirmativo, desbloquéelo haciendo clic derecho sobre el ícono del <strong>candado</strong>.<br>
+                  2- A continuación, haga clic derecho sobre el nombre del empleado que desea eliminar.<br>
+                  3- Una vez seleccionado el empleado, haga clic derecho sobre el ícono del <strong>basurero</strong>.<br>
+                  4- Aparecerán dos ventanas de confirmación:<br>
+                    &nbsp;&nbsp;&nbsp;• La primera solicita confirmar la eliminación del empleado.<br>
+                    &nbsp;&nbsp;&nbsp;• La segunda solicita confirmar la eliminación de la foto y la firma del empleado.<br>
+                  5- En ambas ventanas, confirme la acción haciendo clic derecho en la opción correspondiente.
+                </p>
+                <div class="galeria">
+                  <div class="screenshot">
+                    <img src="11- Eliminar personal.png" alt="Selecionar personal">
+                  </div>
+                  <div class="screenshot">
+                    <img src="12- Eliminar personal 2.png" alt="Confimar eliminacion">
+                  </div>
+                  <div class="screenshot">
+                    <img src="13- Eliminar personal 3.png" alt="Confirmar eliminacion de foto y firma">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="overlay-content">
-            <div class="overlay-header">
-                <div id="lbCaption">Vista previa</div>
-                <button class="close" type="button" aria-label="Cerrar (Esc)" id="lbClose">Cerrar</button>
+    <section id="notas" class="section">
+      <div class="container">
+        <div class="card">
+          <div class="card-head">Notas útiles</div>
+          <div class="card-body" style="display:grid; gap: var(--space-4);">
+            <div class="note">
+              <div class="note-ttl">Consejo</div>
+              <div>
+                Si va a realizar varias tareas dentro del <strong>Gestor de Empleados</strong>, desbloquee el módulo al iniciar. Una vez finalizadas todas las tareas, guarde los cambios y luego bloquee el módulo.
+              </div>
             </div>
-            <img id="lbImg" src="" alt="">
+            <div class="note">
+              <div class="note-ttl">Recordatorio</div>
+              <div>
+                Siempre que termine de trabajar, cierre el módulo haciendo clic derecho sobre el ícono del <strong>candado</strong>.
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      © <span id="y"></span> INFOSERV CORP · Hecho por <strong>Sandino Mañana y Gonzalo Pereira</strong>
     </div>
+  </footer>
 
-    <script>
-        // Año dinámico
-        document.getElementById('y').textContent = new Date().getFullYear();
+  <script>
+    (function(){
+      const yearEl = document.getElementById('y');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
 
-        // Lightbox sin dependencias
-        (function() {
-            const overlay = document.getElementById('overlay');
-            const img = document.getElementById('lbImg');
-            const caption = document.getElementById('lbCaption');
-            const closeBtn = document.getElementById('lbClose');
+      // --- Abrir imagen con fondo difuminado ---
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('click', () => {
+          const modal = document.getElementById('zoomModal');
+          const zoomImg = document.getElementById('zoomImg');
+          zoomImg.src = img.src;
+          zoomImg.style.transform = 'scale(1)';
+          modal.style.display = 'flex';
+        });
+      });
 
-            function openLB(src, alt, cap) {
-                img.src = src;
-                img.alt = alt || '';
-                caption.textContent = cap || alt || 'Vista previa';
-                overlay.classList.add('open');
-                overlay.setAttribute('aria-hidden', 'false');
-            }
-            function closeLB() {
-                overlay.classList.remove('open');
-                overlay.setAttribute('aria-hidden', 'true');
-                img.src = '';
-            }
+    // --- Cerrar al hacer clic fuera ---
+    function closeZoom(e) {
+      if (e.target.id === 'zoomModal') {
+        document.getElementById('zoomModal').style.display = 'none';
+      }
+    }
+  </script>
 
-            document.addEventListener('click', (e) => {
-                const el = e.target.closest('img.shot');
-                if (!el) return;
-                e.preventDefault();
-                openLB(el.getAttribute('src'), el.getAttribute('alt'), el.dataset.caption);
-            });
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) closeLB();
-            });
-            closeBtn.addEventListener('click', closeLB);
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeLB();
-            });
-        })();
-    </script>
+  <!-- Modal de imagen con fondo difuminado -->
+  <div id="zoomModal" class="zoom-modal" onclick="closeZoom(event)">
+    <div class="zoom-wrapper">
+      <img id="zoomImg" src="" alt="">
+    </div>
+  </div>
 </body>
 </html>
